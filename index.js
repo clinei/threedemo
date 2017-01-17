@@ -22,13 +22,15 @@ function Cycler(step, initial = 0.0, mult = PI2, func = Math.sin) {
 function Cube(size) {
 	this.geom = new THREE.BoxGeometry(size, size, size);
 	
+	var colors = [0xff0000, 0x0000ff, 0x000000, 0x000000, 0x000000, 0x000000];
+
 	for(var i = 0; i < this.geom.faces.length; i += 2) {
-		var color = Math.random() * 0xffffff;
+		var color = colors[i / 2];
 		this.geom.faces[i].color.setHex(color);
 		this.geom.faces[i + 1].color.setHex(color);
 	}
 	
-	this.mat = new THREE.MeshLambertMaterial({vertexColors: THREE.FaceColors, overdraw: 0.5});
+	this.mat = new THREE.MeshLambertMaterial({vertexColors: THREE.FaceColors});
 	this.mesh = new THREE.Mesh(this.geom, this.mat);
 	this.cycler = new Cycler(0.006);
 	
